@@ -7,6 +7,11 @@
 
 A package to easily build beautiful API SDKs with Laravel.
 
+## Requirements
+
+- PHP 8.2+
+- Laravel 10+
+
 ## Installation
 
 You can install the package via composer:
