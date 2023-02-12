@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Repos;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/repos#list-repositories-for-a-user
+ */
+final class ListForUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $username,
+        private string $type,
+        private string $sort,
+        private string $direction,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/users/{username}/repos';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'username' => $this->username,
+            ]),
+            new WithQueryParameters([
+                'type' => $this->type,
+                'sort' => $this->sort,
+                'direction' => $this->direction,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

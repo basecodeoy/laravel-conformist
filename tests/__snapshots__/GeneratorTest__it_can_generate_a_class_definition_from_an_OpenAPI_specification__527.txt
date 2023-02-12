@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Users;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/users#check-if-a-user-follows-another-user
+ */
+final class CheckFollowingForUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $username,
+        private string $targetUser,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/users/{username}/following/{target_user}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'username' => $this->username,
+                'target_user' => $this->targetUser,
+            ]),
+        ];
+    }
+}

@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Reactions;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/reactions#delete-team-discussion-reaction
+ */
+final class DeleteForTeamDiscussionRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $teamSlug,
+        private int $discussionNumber,
+        private int $reactionId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::DELETE;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'team_slug' => $this->teamSlug,
+                'discussion_number' => $this->discussionNumber,
+                'reaction_id' => $this->reactionId,
+            ]),
+        ];
+    }
+}

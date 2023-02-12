@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Gists;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/gists#list-gist-forks
+ */
+final class ListForksRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $gistId,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/gists/{gist_id}/forks';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'gist_id' => $this->gistId,
+            ]),
+            new WithQueryParameters([
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

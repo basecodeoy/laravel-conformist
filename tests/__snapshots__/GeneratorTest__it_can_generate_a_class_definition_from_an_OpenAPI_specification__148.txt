@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Teams;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/teams#list-discussions
+ */
+final class ListDiscussionsInOrgRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $teamSlug,
+        private string $direction,
+        private int $perPage,
+        private int $page,
+        private string $pinned,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/teams/{team_slug}/discussions';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'team_slug' => $this->teamSlug,
+            ]),
+            new WithQueryParameters([
+                'direction' => $this->direction,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+                'pinned' => $this->pinned,
+            ]),
+        ];
+    }
+}

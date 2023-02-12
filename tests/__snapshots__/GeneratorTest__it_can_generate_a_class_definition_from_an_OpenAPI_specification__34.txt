@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Gitignore;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/gitignore#get-a-gitignore-template
+ */
+final class GetTemplateRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $name,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/gitignore/templates/{name}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'name' => $this->name,
+            ]),
+        ];
+    }
+}

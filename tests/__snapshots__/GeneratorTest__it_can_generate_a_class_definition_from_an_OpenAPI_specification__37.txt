@@ -1,0 +1,68 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Issues;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user
+ */
+final class ListRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $filter,
+        private string $state,
+        private string $labels,
+        private string $sort,
+        private string $direction,
+        private string $since,
+        private boolean $collab,
+        private boolean $orgs,
+        private boolean $owned,
+        private boolean $pulls,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/issues';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithQueryParameters([
+                'filter' => $this->filter,
+                'state' => $this->state,
+                'labels' => $this->labels,
+                'sort' => $this->sort,
+                'direction' => $this->direction,
+                'since' => $this->since,
+                'collab' => $this->collab,
+                'orgs' => $this->orgs,
+                'owned' => $this->owned,
+                'pulls' => $this->pulls,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

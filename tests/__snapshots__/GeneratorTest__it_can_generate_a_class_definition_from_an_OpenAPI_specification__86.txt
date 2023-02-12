@@ -1,0 +1,68 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\CodeScanning;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-by-organization
+ */
+final class ListAlertsForOrgRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $toolName,
+        private string|null $toolGuid,
+        private string $before,
+        private string $after,
+        private int $page,
+        private int $perPage,
+        private string $direction,
+        private string $state,
+        private string $sort,
+        private string $severity,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/code-scanning/alerts';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+            ]),
+            new WithQueryParameters([
+                'tool_name' => $this->toolName,
+                'tool_guid' => $this->toolGuid,
+                'before' => $this->before,
+                'after' => $this->after,
+                'page' => $this->page,
+                'per_page' => $this->perPage,
+                'direction' => $this->direction,
+                'state' => $this->state,
+                'sort' => $this->sort,
+                'severity' => $this->severity,
+            ]),
+        ];
+    }
+}

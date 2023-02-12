@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Reactions;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy
+ */
+final class ListForTeamDiscussionCommentLegacyRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $teamId,
+        private int $discussionNumber,
+        private int $commentNumber,
+        private string $content,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'team_id' => $this->teamId,
+                'discussion_number' => $this->discussionNumber,
+                'comment_number' => $this->commentNumber,
+            ]),
+            new WithQueryParameters([
+                'content' => $this->content,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

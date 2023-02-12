@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Packages;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/packages#restore-a-package-for-the-authenticated-user
+ */
+final class RestorePackageForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $packageType,
+        private string $packageName,
+        private string $token,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/packages/{package_type}/{package_name}/restore';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'package_type' => $this->packageType,
+                'package_name' => $this->packageName,
+            ]),
+            new WithQueryParameters([
+                'token' => $this->token,
+            ]),
+        ];
+    }
+}

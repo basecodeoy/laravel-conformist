@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Codespaces;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/codespaces#set-codespaces-billing
+ */
+final class SetCodespacesBillingRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $visibility,
+        private array $selectedUsernames,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/codespaces/billing';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+            ]),
+            new WithBody([
+                'visibility' => $this->visibility,
+                'selected_usernames' => $this->selectedUsernames,
+            ]),
+        ];
+    }
+}

@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Pulls;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment
+ */
+final class CreateReplyForReviewCommentRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private int $pullNumber,
+        private int $commentId,
+        private string $body,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+                'pull_number' => $this->pullNumber,
+                'comment_id' => $this->commentId,
+            ]),
+            new WithBody([
+                'body' => $this->body,
+            ]),
+        ];
+    }
+}

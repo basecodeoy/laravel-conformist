@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Actions;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/actions#get-an-environment-secret
+ */
+final class GetEnvironmentSecretRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $repositoryId,
+        private string $environmentName,
+        private string $secretName,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'repository_id' => $this->repositoryId,
+                'environment_name' => $this->environmentName,
+                'secret_name' => $this->secretName,
+            ]),
+        ];
+    }
+}

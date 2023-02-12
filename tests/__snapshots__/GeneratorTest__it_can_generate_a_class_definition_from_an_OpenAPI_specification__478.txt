@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Codespaces;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/codespaces#stop-a-codespace-for-the-authenticated-user
+ */
+final class StopForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $codespaceName,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/codespaces/{codespace_name}/stop';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'codespace_name' => $this->codespaceName,
+            ]),
+        ];
+    }
+}

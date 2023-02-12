@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Apps;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app
+ */
+final class ListInstallationsRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $perPage,
+        private int $page,
+        private string $since,
+        private string $outdated,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/app/installations';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithQueryParameters([
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+                'since' => $this->since,
+                'outdated' => $this->outdated,
+            ]),
+        ];
+    }
+}

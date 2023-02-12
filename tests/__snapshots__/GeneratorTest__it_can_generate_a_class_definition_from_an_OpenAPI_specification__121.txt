@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Codespaces;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/codespaces
+ */
+final class StopInOrganizationRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $username,
+        private string $codespaceName,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/members/{username}/codespaces/{codespace_name}/stop';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'username' => $this->username,
+                'codespace_name' => $this->codespaceName,
+            ]),
+        ];
+    }
+}

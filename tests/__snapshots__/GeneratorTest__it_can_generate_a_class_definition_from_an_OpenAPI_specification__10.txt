@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Apps;
+
+use PreemStudio\Conformist\Contracts\Connector;
+use PreemStudio\Conformist\Enums\HttpMethod;
+use PreemStudio\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/apps/#create-an-installation-access-token-for-an-app
+ */
+final class CreateInstallationAccessTokenRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $installationId,
+        private array $repositories,
+        private array $repositoryIds,
+        private object $permissions,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/app/installations/{installation_id}/access_tokens';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'installation_id' => $this->installationId,
+            ]),
+            new WithBody([
+                'repositories' => $this->repositories,
+                'repository_ids' => $this->repositoryIds,
+                'permissions' => $this->permissions,
+            ]),
+        ];
+    }
+}
