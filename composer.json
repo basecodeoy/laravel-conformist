@@ -1,13 +1,12 @@
 {
     "name": "preemstudio/laravel-conformist",
     "description": "A package to easily build beautiful API SDKs with Laravel.",
+    "license": "MIT",
     "keywords": [
         "PreemStudio",
         "laravel",
         "conformist"
     ],
-    "homepage": "https://github.com/preemstudio/laravel-conformist",
-    "license": "MIT",
     "authors": [
         {
             "name": "Brian Faust",
@@ -15,14 +14,15 @@
             "role": "Developer"
         }
     ],
+    "homepage": "https://github.com/preemstudio/laravel-conformist",
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.5",
         "illuminate/contracts": "^10.0",
         "illuminate/http": "^10.0",
         "illuminate/support": "^10.0",
-        "spatie/laravel-data": "^3.1",
         "preemstudio/laravel-jetpack": "^1.0",
+        "spatie/laravel-data": "^3.1",
         "spatie/regex": "^3.1"
     },
     "require-dev": {
@@ -40,6 +40,8 @@
         "spatie/laravel-ray": "^1.32",
         "spatie/pest-plugin-snapshots": "^1.1"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "PreemStudio\\Conformist\\": "src"
@@ -50,21 +52,19 @@
             "Tests\\": "tests"
         }
     },
-    "scripts": {
-        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
-        "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint --config vendor/preemstudio/laravel-jetpack/pint.json"
-    },
     "config": {
-        "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true,
             "ergebnis/composer-normalize": true
-        }
+        },
+        "sort-packages": true
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint --config vendor/preemstudio/laravel-jetpack/pint.json",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage"
+    }
 }
