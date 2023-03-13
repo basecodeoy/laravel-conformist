@@ -28,7 +28,7 @@ final class Parser
 
         foreach ($this->specification['paths'] as $path => $definition) {
             [$httpMethod, $definition] = $this->definitionFromMethod($definition);
-            [$namespace, $className] = explode('/', $definition['operationId']);
+            [$namespace, $className]   = explode('/', $definition['operationId']);
 
             $result[] = new Definition(
                 className: Str::studly($className),
