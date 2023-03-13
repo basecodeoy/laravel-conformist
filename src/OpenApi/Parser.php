@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use PreemStudio\Conformist\Enums\HttpMethod;
 
-class Parser
+final class Parser
 {
     private function __construct(public array $specification)
     {
@@ -28,7 +28,7 @@ class Parser
 
         foreach ($this->specification['paths'] as $path => $definition) {
             [$httpMethod, $definition] = $this->definitionFromMethod($definition);
-            [$namespace, $className]   = explode('/', $definition['operationId']);
+            [$namespace, $className] = explode('/', $definition['operationId']);
 
             $result[] = new Definition(
                 className: Str::studly($className),

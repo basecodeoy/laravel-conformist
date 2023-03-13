@@ -9,7 +9,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 use PreemStudio\Conformist\ServiceProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
 
-class TestCase extends Orchestra
+abstract class TestCase extends Orchestra
 {
     protected function getPackageProviders($app)
     {

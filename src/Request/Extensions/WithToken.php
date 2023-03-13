@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class WithToken implements Extension
+final class WithToken implements Extension
 {
     public function __construct(private string $token, private string $type = 'Bearer')
     {

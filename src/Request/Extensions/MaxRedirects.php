@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class MaxRedirects implements Extension
+final class MaxRedirects implements Extension
 {
     public function __construct(private int $max)
     {

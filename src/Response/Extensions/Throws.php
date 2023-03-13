@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Response\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class Throws implements Extension
+final class Throws implements Extension
 {
     public function __construct(private ?\Closure $callback)
     {

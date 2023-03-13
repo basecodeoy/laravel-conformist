@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Response\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class ThrowsIf implements Extension
+final class ThrowsIf implements Extension
 {
     public function __construct(private \Closure $condition)
     {

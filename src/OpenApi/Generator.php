@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Spatie\LaravelData\Data;
 
-class Generator extends Data
+final class Generator extends Data
 {
     public function __construct(private Specification $specification, private Definition $definition)
     {

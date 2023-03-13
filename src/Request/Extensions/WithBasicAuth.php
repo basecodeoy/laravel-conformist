@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class WithBasicAuth implements Extension
+final class WithBasicAuth implements Extension
 {
     public function __construct(private string $username, private string $password)
     {

@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class ConnectTimeout implements Extension
+final class ConnectTimeout implements Extension
 {
     public function __construct(private int $seconds)
     {

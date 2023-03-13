@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Response\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class OnError implements Extension
+final class OnError implements Extension
 {
     public function __construct(private \Closure $callback)
     {

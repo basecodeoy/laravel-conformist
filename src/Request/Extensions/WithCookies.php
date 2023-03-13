@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class WithCookies implements Extension
+final class WithCookies implements Extension
 {
     public function __construct(private array $cookies, private string $domain)
     {

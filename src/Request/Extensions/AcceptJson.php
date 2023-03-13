@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class AcceptJson implements Extension
+final class AcceptJson implements Extension
 {
     /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
     public function register(Extensible $extensible): void

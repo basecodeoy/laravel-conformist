@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Response\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class ThrowsUnlessStatus implements Extension
+final class ThrowsUnlessStatus implements Extension
 {
     public function __construct(private int $statusCode)
     {

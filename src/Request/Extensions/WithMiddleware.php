@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class WithMiddleware implements Extension
+final class WithMiddleware implements Extension
 {
     public function __construct(private \Closure $middleware)
     {

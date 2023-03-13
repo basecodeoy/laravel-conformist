@@ -7,7 +7,7 @@ namespace PreemStudio\Conformist\Request\Extensions;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class ContentType implements Extension
+final class ContentType implements Extension
 {
     public function __construct(private string $contentType)
     {

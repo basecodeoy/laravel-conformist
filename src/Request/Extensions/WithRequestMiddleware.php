@@ -8,7 +8,7 @@ use GuzzleHttp\Middleware;
 use PreemStudio\Conformist\Contracts\Extensible;
 use PreemStudio\Conformist\Contracts\Extension;
 
-class WithRequestMiddleware implements Extension
+final class WithRequestMiddleware implements Extension
 {
     public function __construct(private \Closure $callback)
     {
