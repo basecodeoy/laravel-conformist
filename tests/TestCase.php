@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Illuminate\View\ViewServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
-use PreemStudio\Conformist\ServiceProvider;
-use Spatie\LaravelData\LaravelDataServiceProvider;
+use PreemStudio\Jetpack\TestBench\AbstractPackageTestCase;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends AbstractPackageTestCase
 {
-    protected function getPackageProviders($app)
+    protected function getRequiredServiceProviders(): array
     {
         return [
-            LaravelDataServiceProvider::class,
-            ViewServiceProvider::class,
-            ServiceProvider::class,
+            \Illuminate\View\ViewServiceProvider::class,
+            \Spatie\LaravelData\LaravelDataServiceProvider::class,
         ];
+    }
+
+    protected function getServiceProviderClass(): string
+    {
+        return \PreemStudio\Conformist\ServiceProvider::class;
     }
 }
