@@ -1,0 +1,96 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Binary operation \"\\.\\=\" between 0\\|0\\.0\\|''\\|'0'\\|array\\{\\}\\|false\\|null and \"new WithBody\\(\\[\\\\n\"\\|\"new WithBody\\(\\[\\\\r\\\\n\" results in an error\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildExtensionParameters\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildExtensionTemplate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildParameterLine\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildParameters\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:resolveRef\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:unwrapParameterLine\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildParameterLine\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:unwrapParameterLine\\(\\) expects string, mixed given\\.$#"
+			count: 2
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#2 \\$parameter of method PreemStudio\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:unwrapParameterLine\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|false given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Parameter \\#1 \\$specification of class PreemStudio\\\\Conformist\\\\OpenApi\\\\Parser constructor expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Parameter \\$parameters of class PreemStudio\\\\Conformist\\\\OpenApi\\\\Definition constructor expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Parameter \\$requestBody of class PreemStudio\\\\Conformist\\\\OpenApi\\\\Definition constructor expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\Request\\\\AbstractRequest\\:\\:__call\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Request/AbstractRequest.php
+
+		-
+			message: "#^Method PreemStudio\\\\Conformist\\\\Response\\\\AbstractResponse\\:\\:__call\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Response/AbstractResponse.php
