@@ -6,9 +6,8 @@ namespace PreemStudio\Conformist\OpenApi;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Spatie\LaravelData\Data;
 
-final class Generator extends Data
+final class Generator
 {
     public function __construct(private Specification $specification, private Definition $definition)
     {

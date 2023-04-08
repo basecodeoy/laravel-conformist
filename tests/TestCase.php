@@ -15,7 +15,6 @@ abstract class TestCase extends AbstractPackageTestCase
     {
         return [
             \Illuminate\View\ViewServiceProvider::class,
-            \Spatie\LaravelData\LaravelDataServiceProvider::class,
         ];
     }
 

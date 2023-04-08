@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace PreemStudio\Conformist\OpenApi;
 
-use Spatie\LaravelData\Data;
-
-final class Specification extends Data
+final class Specification
 {
     public function __construct(
         public array $specification,
