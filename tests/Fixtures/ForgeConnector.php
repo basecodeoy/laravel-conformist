@@ -17,7 +17,7 @@ final class ForgeConnector extends AbstractConnector
     public function requestExtensions(): array
     {
         return [
-            new AsJson,
+            new AsJson(),
         ];
     }
 }

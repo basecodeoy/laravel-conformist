@@ -8,15 +8,21 @@ use PreemStudio\Conformist\Contracts\Extension;
 
 trait HasExtensions
 {
-    /** @var Extension[] */
+    /**
+     * @var Extension[]
+     */
     private array $extensions = [];
 
-    /** @var Extension[] */
+    /**
+     * @var Extension[]
+     */
     private array $uninitializedExtensions = [];
 
     private bool $extensionsInitialized = false;
 
-    /** @return Extension[] */
+    /**
+     * @return Extension[]
+     */
     public function getExtensions(): array
     {
         return $this->extensions;
@@ -38,7 +44,9 @@ trait HasExtensions
         $this->uninitializedExtensions[] = $extension;
     }
 
-    /** @return Extension[] */
+    /**
+     * @return Extension[]
+     */
     public function extensions(): array
     {
         return [];

@@ -9,7 +9,9 @@ use PreemStudio\Conformist\Contracts\Extension;
 
 final class AsForm implements Extension
 {
-    /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Request $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->asForm();

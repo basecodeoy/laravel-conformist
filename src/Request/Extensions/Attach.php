@@ -13,12 +13,14 @@ final class Attach implements Extension
         private string $name,
         private string $contents = '',
         private ?string $filename = null,
-        private array $headers = []
+        private array $headers = [],
     ) {
         //
     }
 
-    /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Request $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->attach($this->name, $this->contents, $this->filename, $this->headers);

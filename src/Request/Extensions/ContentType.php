@@ -14,7 +14,9 @@ final class ContentType implements Extension
         //
     }
 
-    /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Request $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->contentType($this->contentType);

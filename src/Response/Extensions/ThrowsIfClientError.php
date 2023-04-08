@@ -9,7 +9,9 @@ use PreemStudio\Conformist\Contracts\Extension;
 
 final class ThrowsIfClientError implements Extension
 {
-    /** @param  \PreemStudio\Conformist\Contracts\Response  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Response $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->throwIfClientError();

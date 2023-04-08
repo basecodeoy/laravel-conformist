@@ -8,6 +8,8 @@ interface Extension
 {
     public function register(Extensible $extensible): void;
 
-    /** @return Extension[] */
+    /**
+     * @return Extension[]
+     */
     public function dependencies(): array;
 }

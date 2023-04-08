@@ -18,7 +18,7 @@ final class Parser
 
     public static function fromJsonFile(string $file): self
     {
-        return new self(json_decode(file_get_contents($file), true));
+        return new self(\json_decode(\file_get_contents($file), true));
     }
 
     public function parse(): Specification
@@ -28,7 +28,7 @@ final class Parser
 
         foreach ($this->specification['paths'] as $path => $definition) {
             [$httpMethod, $definition] = $this->definitionFromMethod($definition);
-            [$namespace, $className]   = explode('/', $definition['operationId']);
+            [$namespace, $className] = \explode('/', $definition['operationId']);
 
             $result[] = new Definition(
                 className: Str::studly($className),
@@ -39,7 +39,7 @@ final class Parser
                 parameters: Arr::get($definition, 'parameters', []),
                 path: $path,
                 requestBody: Arr::get($definition, 'requestBody', []),
-                service: explode(' ', $this->specification['info']['title'])[0],
+                service: \explode(' ', $this->specification['info']['title'])[0],
                 summary: $definition['summary'],
             );
         }
@@ -49,27 +49,27 @@ final class Parser
 
     private function definitionFromMethod(array $definition): array
     {
-        if (array_key_exists('get', $definition)) {
+        if (\array_key_exists('get', $definition)) {
             return [HttpMethod::GET, $definition['get']];
         }
 
-        if (array_key_exists('post', $definition)) {
+        if (\array_key_exists('post', $definition)) {
             return [HttpMethod::POST, $definition['post']];
         }
 
-        if (array_key_exists('put', $definition)) {
+        if (\array_key_exists('put', $definition)) {
             return [HttpMethod::PUT, $definition['put']];
         }
 
-        if (array_key_exists('patch', $definition)) {
+        if (\array_key_exists('patch', $definition)) {
             return [HttpMethod::PATCH, $definition['patch']];
         }
 
-        if (array_key_exists('delete', $definition)) {
+        if (\array_key_exists('delete', $definition)) {
             return [HttpMethod::DELETE, $definition['delete']];
         }
 
-        if (array_key_exists('options', $definition)) {
+        if (\array_key_exists('options', $definition)) {
             return [HttpMethod::OPTIONS, $definition['options']];
         }
 

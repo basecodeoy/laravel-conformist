@@ -17,7 +17,7 @@ final class ListServersRequest extends AbstractRequest
 
     public function connector(): Connector
     {
-        return new ForgeConnector;
+        return new ForgeConnector();
     }
 
     public function method(): HttpMethod

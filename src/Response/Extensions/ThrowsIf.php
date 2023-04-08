@@ -14,7 +14,9 @@ final class ThrowsIf implements Extension
         //
     }
 
-    /** @param  \PreemStudio\Conformist\Contracts\Response  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Response $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->throwIf($this->condition);

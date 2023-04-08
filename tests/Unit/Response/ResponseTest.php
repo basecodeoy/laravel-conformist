@@ -7,10 +7,10 @@ namespace Tests\Unit\Connector;
 use Illuminate\Support\Facades\Http;
 use Tests\Fixtures\ForgeConnector;
 
-it('can access the status code', function () {
+it('can access the status code', function (): void {
     Http::fakeSequence()
         ->push('Hello World', 200)
         ->whenEmpty(Http::response());
 
-    expect((new ForgeConnector)->toResponse(Http::get('https://google.com'))->status())->toBe(200);
+    expect((new ForgeConnector())->toResponse(Http::get('https://google.com'))->status())->toBe(200);
 });

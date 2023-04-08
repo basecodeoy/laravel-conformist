@@ -17,33 +17,32 @@ final class Generator extends Data
 
     public function toString(): string
     {
-        $stub = file_get_contents('stubs/openapi.stub');
-        $stub = str_replace('{{ class }}', $this->definition->className, $stub);
-        $stub = str_replace('{{ extensions }}', $this->buildExtensions(), $stub);
-        $stub = str_replace('{{ externalDocs }}', $this->definition->externalDocs, $stub);
-        $stub = str_replace('{{ httpMethod }}', $this->definition->httpMethod, $stub);
-        $stub = str_replace('{{ namespace }}', $this->definition->namespace, $stub);
-        $stub = str_replace('{{ parameters }}', $this->buildParameters(), $stub);
-        $stub = str_replace('{{ path }}', $this->definition->path, $stub);
-        $stub = str_replace('{{ service }}', $this->definition->service, $stub);
+        $stub = \file_get_contents('stubs/openapi.stub');
+        $stub = \str_replace('{{ class }}', $this->definition->className, $stub);
+        $stub = \str_replace('{{ extensions }}', $this->buildExtensions(), $stub);
+        $stub = \str_replace('{{ externalDocs }}', $this->definition->externalDocs, $stub);
+        $stub = \str_replace('{{ httpMethod }}', $this->definition->httpMethod, $stub);
+        $stub = \str_replace('{{ namespace }}', $this->definition->namespace, $stub);
+        $stub = \str_replace('{{ parameters }}', $this->buildParameters(), $stub);
+        $stub = \str_replace('{{ path }}', $this->definition->path, $stub);
 
-        return $stub;
+        return \str_replace('{{ service }}', $this->definition->service, $stub);
     }
 
     private function buildExtensions(): string
     {
         $result = '';
 
-        if (count($this->definition->parameters) > 0) {
+        if (\count($this->definition->parameters) > 0) {
             $pathParameters = $this->buildExtensionParameters('path');
 
-            if (! empty($pathParameters)) {
+            if (!empty($pathParameters)) {
                 $this->buildExtensionTemplate($result, $pathParameters, 'WithUrlParameters');
             }
 
             $queryParameters = $this->buildExtensionParameters('query');
 
-            if (! empty($queryParameters)) {
+            if (!empty($queryParameters)) {
                 $this->buildExtensionTemplate($result, $queryParameters, 'WithQueryParameters');
             }
         }
@@ -51,11 +50,11 @@ final class Generator extends Data
         if ($this->definition->requestBody) {
             $properties = Arr::get($this->definition->requestBody, 'content.application/json.schema.properties', []);
 
-            if (! empty($properties)) {
+            if (!empty($properties)) {
                 if (empty($result)) {
-                    $result .= 'new WithBody(['.PHP_EOL;
+                    $result .= 'new WithBody(['.\PHP_EOL;
                 } else {
-                    $result .= PHP_EOL.'            new WithBody(['.PHP_EOL;
+                    $result .= \PHP_EOL.'            new WithBody(['.\PHP_EOL;
                 }
             }
 
@@ -75,7 +74,7 @@ final class Generator extends Data
 
     private function resolveRef(string $reference)
     {
-        [$prefix, $components, $type, $parameter] = explode('/', $reference);
+        [$prefix, $components, $type, $parameter] = \explode('/', $reference);
 
         return $this->specification->specification[$components][$type][$parameter];
     }
@@ -100,9 +99,9 @@ final class Generator extends Data
     private function buildExtensionTemplate(string &$result, array $parameters, string $className)
     {
         if (empty($result)) {
-            $result .= "new $className([".PHP_EOL;
+            $result .= "new {$className}([".\PHP_EOL;
         } else {
-            $result .= PHP_EOL."            new $className([".PHP_EOL;
+            $result .= \PHP_EOL."            new {$className}([".\PHP_EOL;
         }
 
         foreach ($parameters as $parameter) {
@@ -118,12 +117,12 @@ final class Generator extends Data
     {
         $nameCamel = Str::camel($name);
 
-        return "                '{$name}' => \$this->$nameCamel,".PHP_EOL;
+        return "                '{$name}' => \$this->{$nameCamel},".\PHP_EOL;
     }
 
     private function buildParameters()
     {
-        $result = 'public function __constructor('.PHP_EOL;
+        $result = 'public function __constructor('.\PHP_EOL;
 
         foreach ($this->definition->parameters as $parameter) {
             $result .= $this->unwrapParameterLine(Arr::get($parameter, 'name', ''), $parameter);
@@ -135,8 +134,8 @@ final class Generator extends Data
             $result .= $this->unwrapParameterLine($parameterName, $parameter);
         }
 
-        $result .= '    ) {'.PHP_EOL;
-        $result .= '        //'.PHP_EOL;
+        $result .= '    ) {'.\PHP_EOL;
+        $result .= '        //'.\PHP_EOL;
         $result .= '    }';
 
         return $result;
@@ -158,11 +157,11 @@ final class Generator extends Data
 
         $type = Arr::get($parameter, 'type') ?? Arr::get($parameter, 'schema.type') ?? Arr::get($parameter, 'items.type');
 
-        if (is_array($type)) {
-            $type = implode('|', $type);
+        if (\is_array($type)) {
+            $type = \implode('|', $type);
         }
 
-        $type = str_replace(
+        $type = \str_replace(
             ['integer'],
             ['int'],
             $type,
@@ -170,6 +169,6 @@ final class Generator extends Data
 
         $name = Str::camel($parameter['name'] ?? $name);
 
-        return "        private $type \$$name,".PHP_EOL;
+        return "        private {$type} \${$name},".\PHP_EOL;
     }
 }

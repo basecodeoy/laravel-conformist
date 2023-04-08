@@ -15,7 +15,9 @@ final class WithResponseMiddleware implements Extension
         //
     }
 
-    /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Request $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->withMiddleware(Middleware::mapResponse($this->callback));

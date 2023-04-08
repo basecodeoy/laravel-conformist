@@ -9,7 +9,9 @@ use PreemStudio\Conformist\Contracts\Extension;
 
 final class DumpDie implements Extension
 {
-    /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Request $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->dd();

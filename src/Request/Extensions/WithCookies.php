@@ -14,7 +14,9 @@ final class WithCookies implements Extension
         //
     }
 
-    /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Request $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->withCookies($this->cookies, $this->domain);

@@ -14,7 +14,9 @@ final class WithBody implements Extension
         //
     }
 
-    /** @param  \PreemStudio\Conformist\Contracts\Request  $extensible */
+    /**
+     * @param \PreemStudio\Conformist\Contracts\Request $extensible
+     */
     public function register(Extensible $extensible): void
     {
         $extensible->withBody($this->content, $this->contentType);

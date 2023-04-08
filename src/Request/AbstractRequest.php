@@ -40,9 +40,9 @@ abstract class AbstractRequest implements Request
 
     public function process(): Response
     {
-        $httpMethod = strtolower($this->method()->name);
+        $httpMethod = \mb_strtolower($this->method()->name);
 
-        return $this->toResponse($this->pendingRequest->$httpMethod($this->path()));
+        return $this->toResponse($this->pendingRequest->{$httpMethod}($this->path()));
     }
 
     public function toResponse(Illuminate $response): Response

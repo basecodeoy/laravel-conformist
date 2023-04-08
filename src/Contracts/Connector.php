@@ -11,10 +11,14 @@ interface Connector extends Extensible
 {
     public function baseUrl(): string;
 
-    /** @return Extension[] */
+    /**
+     * @return Extension[]
+     */
     public function requestExtensions(): array;
 
-    /** @return Extension[] */
+    /**
+     * @return Extension[]
+     */
     public function responseExtensions(): array;
 
     public function makeRequest(): PendingRequest;
