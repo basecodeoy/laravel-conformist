@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BombenProdukt\Conformist\Contracts;
 
-use Illuminate\Http\Client\Response as Illuminate;
 use BombenProdukt\Conformist\Enums\HttpMethod;
+use Illuminate\Http\Client\Response as Illuminate;
 
 /**
  * @mixin \Illuminate\Http\Client\PendingRequest

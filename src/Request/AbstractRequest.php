@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace BombenProdukt\Conformist\Request;
 
-use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Http\Client\Response as Illuminate;
-use Illuminate\Support\Traits\ForwardsCalls;
-use Illuminate\Support\Traits\Macroable;
 use BombenProdukt\Conformist\Concerns\HasExtensions;
 use BombenProdukt\Conformist\Contracts\Connector;
 use BombenProdukt\Conformist\Contracts\Request;
 use BombenProdukt\Conformist\Contracts\Response;
 use BombenProdukt\Conformist\Enums\HttpMethod;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response as Illuminate;
+use Illuminate\Support\Traits\ForwardsCalls;
+use Illuminate\Support\Traits\Macroable;
 
 abstract class AbstractRequest implements Request
 {

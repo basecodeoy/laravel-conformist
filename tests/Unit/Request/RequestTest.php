@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Connector;
 
-use Illuminate\Support\Facades\Http;
 use BombenProdukt\Conformist\Response\AbstractResponse;
+use Illuminate\Support\Facades\Http;
 use Tests\Fixtures\ListServersRequest;
 
 it('can send a request and receive a response instance', function (): void {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace BombenProdukt\Conformist\OpenApi;
 
+use BombenProdukt\Conformist\Enums\HttpMethod;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use BombenProdukt\Conformist\Enums\HttpMethod;
 
 final class Parser
 {

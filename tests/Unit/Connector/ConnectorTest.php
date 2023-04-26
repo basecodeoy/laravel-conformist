@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Connector;
 
+use BombenProdukt\Conformist\Response\AbstractResponse;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
-use BombenProdukt\Conformist\Response\AbstractResponse;
 use Tests\Fixtures\ForgeConnector;
 
 it('can access the base URL', function (): void {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace BombenProdukt\Conformist\Response;
 
-use Illuminate\Http\Client\Response as Illuminate;
-use Illuminate\Support\Traits\ForwardsCalls;
 use BombenProdukt\Conformist\Concerns\HasExtensions;
 use BombenProdukt\Conformist\Contracts\Connector;
 use BombenProdukt\Conformist\Contracts\Response;
+use Illuminate\Http\Client\Response as Illuminate;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Spatie\Macroable\Macroable;
 
 abstract class AbstractResponse implements Response

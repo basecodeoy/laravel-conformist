@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BombenProdukt\Conformist\Request\Extensions;
 
-use GuzzleHttp\Middleware;
 use BombenProdukt\Conformist\Contracts\Extensible;
 use BombenProdukt\Conformist\Contracts\Extension;
+use GuzzleHttp\Middleware;
 
 final class WithRequestMiddleware implements Extension
 {
