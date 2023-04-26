@@ -1,0 +1,64 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\CodeScanning;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/code-scanning#upload-a-sarif-file
+ */
+final class UploadSarifRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private string $commitSha,
+        private string $ref,
+        private string $sarif,
+        private string $checkoutUri,
+        private string $startedAt,
+        private string $toolName,
+        private boolean $validate,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/code-scanning/sarifs';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+            ]),
+            new WithBody([
+                'commit_sha' => $this->commitSha,
+                'ref' => $this->ref,
+                'sarif' => $this->sarif,
+                'checkout_uri' => $this->checkoutUri,
+                'started_at' => $this->startedAt,
+                'tool_name' => $this->toolName,
+                'validate' => $this->validate,
+            ]),
+        ];
+    }
+}

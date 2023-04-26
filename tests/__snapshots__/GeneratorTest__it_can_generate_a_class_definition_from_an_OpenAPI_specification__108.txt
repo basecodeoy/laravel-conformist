@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Orgs;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook
+ */
+final class RedeliverWebhookDeliveryRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private int $hookId,
+        private int $deliveryId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'hook_id' => $this->hookId,
+                'delivery_id' => $this->deliveryId,
+            ]),
+        ];
+    }
+}

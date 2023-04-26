@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Codespaces;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/codespaces/codespaces#export-a-codespace-for-the-authenticated-user
+ */
+final class ExportForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $codespaceName,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/codespaces/{codespace_name}/exports';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'codespace_name' => $this->codespaceName,
+            ]),
+        ];
+    }
+}

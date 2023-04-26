@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Markdown;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/markdown#render-a-markdown-document
+ */
+final class RenderRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $text,
+        private string $mode,
+        private string $context,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/markdown';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithBody([
+                'text' => $this->text,
+                'mode' => $this->mode,
+                'context' => $this->context,
+            ]),
+        ];
+    }
+}

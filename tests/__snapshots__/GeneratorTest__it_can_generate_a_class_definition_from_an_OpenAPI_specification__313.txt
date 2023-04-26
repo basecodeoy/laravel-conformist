@@ -1,0 +1,62 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Git;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/git#create-a-commit
+ */
+final class CreateCommitRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private string $message,
+        private string $tree,
+        private array $parents,
+        private object $author,
+        private object $committer,
+        private string $signature,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/git/commits';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+            ]),
+            new WithBody([
+                'message' => $this->message,
+                'tree' => $this->tree,
+                'parents' => $this->parents,
+                'author' => $this->author,
+                'committer' => $this->committer,
+                'signature' => $this->signature,
+            ]),
+        ];
+    }
+}

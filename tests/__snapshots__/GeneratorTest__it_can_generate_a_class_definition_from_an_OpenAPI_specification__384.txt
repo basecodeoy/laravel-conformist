@@ -1,0 +1,70 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Codespaces;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/codespaces#create-a-codespace-from-a-pull-request
+ */
+final class CreateWithPrForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private int $pullNumber,
+        private string $location,
+        private string $clientIp,
+        private string $machine,
+        private string $devcontainerPath,
+        private boolean $multiRepoPermissionsOptOut,
+        private string $workingDirectory,
+        private int $idleTimeoutMinutes,
+        private string $displayName,
+        private int $retentionPeriodMinutes,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/pulls/{pull_number}/codespaces';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+                'pull_number' => $this->pullNumber,
+            ]),
+            new WithBody([
+                'location' => $this->location,
+                'client_ip' => $this->clientIp,
+                'machine' => $this->machine,
+                'devcontainer_path' => $this->devcontainerPath,
+                'multi_repo_permissions_opt_out' => $this->multiRepoPermissionsOptOut,
+                'working_directory' => $this->workingDirectory,
+                'idle_timeout_minutes' => $this->idleTimeoutMinutes,
+                'display_name' => $this->displayName,
+                'retention_period_minutes' => $this->retentionPeriodMinutes,
+            ]),
+        ];
+    }
+}

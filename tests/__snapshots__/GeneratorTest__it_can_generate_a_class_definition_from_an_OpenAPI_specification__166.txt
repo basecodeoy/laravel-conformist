@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Projects;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/projects#move-a-project-card
+ */
+final class MoveCardRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $cardId,
+        private string $position,
+        private int $columnId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/projects/columns/cards/{card_id}/moves';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'card_id' => $this->cardId,
+            ]),
+            new WithBody([
+                'position' => $this->position,
+                'column_id' => $this->columnId,
+            ]),
+        ];
+    }
+}

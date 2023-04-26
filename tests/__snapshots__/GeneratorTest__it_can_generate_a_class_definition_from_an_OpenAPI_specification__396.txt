@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Pulls;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch
+ */
+final class UpdateBranchRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private int $pullNumber,
+        private string $expectedHeadSha,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/pulls/{pull_number}/update-branch';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+                'pull_number' => $this->pullNumber,
+            ]),
+            new WithBody([
+                'expected_head_sha' => $this->expectedHeadSha,
+            ]),
+        ];
+    }
+}

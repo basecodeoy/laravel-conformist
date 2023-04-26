@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Apps;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/apps#list-deliveries-for-an-app-webhook
+ */
+final class ListWebhookDeliveriesRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $perPage,
+        private string $cursor,
+        private boolean $redelivery,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/app/hook/deliveries';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithQueryParameters([
+                'per_page' => $this->perPage,
+                'cursor' => $this->cursor,
+                'redelivery' => $this->redelivery,
+            ]),
+        ];
+    }
+}

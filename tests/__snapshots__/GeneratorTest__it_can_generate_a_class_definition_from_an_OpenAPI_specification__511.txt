@@ -1,0 +1,62 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Repos;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user
+ */
+final class ListForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $visibility,
+        private string $affiliation,
+        private string $type,
+        private string $sort,
+        private string $direction,
+        private int $perPage,
+        private int $page,
+        private string $since,
+        private string $before,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/repos';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithQueryParameters([
+                'visibility' => $this->visibility,
+                'affiliation' => $this->affiliation,
+                'type' => $this->type,
+                'sort' => $this->sort,
+                'direction' => $this->direction,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+                'since' => $this->since,
+                'before' => $this->before,
+            ]),
+        ];
+    }
+}

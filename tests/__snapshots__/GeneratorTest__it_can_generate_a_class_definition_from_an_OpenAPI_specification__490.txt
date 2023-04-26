@@ -1,0 +1,60 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Issues;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user
+ */
+final class ListForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $filter,
+        private string $state,
+        private string $labels,
+        private string $sort,
+        private string $direction,
+        private string $since,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/issues';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithQueryParameters([
+                'filter' => $this->filter,
+                'state' => $this->state,
+                'labels' => $this->labels,
+                'sort' => $this->sort,
+                'direction' => $this->direction,
+                'since' => $this->since,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

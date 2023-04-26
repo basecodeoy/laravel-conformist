@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Packages;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/packages#get-all-package-versions-for-a-package-owned-by-a-user
+ */
+final class GetAllPackageVersionsForPackageOwnedByUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $packageType,
+        private string $packageName,
+        private string $username,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/users/{username}/packages/{package_type}/{package_name}/versions';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'package_type' => $this->packageType,
+                'package_name' => $this->packageName,
+                'username' => $this->username,
+            ]),
+        ];
+    }
+}

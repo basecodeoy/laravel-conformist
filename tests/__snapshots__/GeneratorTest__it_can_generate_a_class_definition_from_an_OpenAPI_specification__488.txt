@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Apps;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/apps#add-a-repository-to-an-app-installation
+ */
+final class AddRepoToInstallationForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $installationId,
+        private int $repositoryId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/installations/{installation_id}/repositories/{repository_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'installation_id' => $this->installationId,
+                'repository_id' => $this->repositoryId,
+            ]),
+        ];
+    }
+}

@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Git;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/git#create-a-reference
+ */
+final class CreateRefRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private string $ref,
+        private string $sha,
+        private string $key,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/git/refs';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+            ]),
+            new WithBody([
+                'ref' => $this->ref,
+                'sha' => $this->sha,
+                'key' => $this->key,
+            ]),
+        ];
+    }
+}

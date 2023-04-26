@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Repos;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/repos#generate-release-notes
+ */
+final class GenerateReleaseNotesRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private string $tagName,
+        private string $targetCommitish,
+        private string $previousTagName,
+        private string $configurationFilePath,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/releases/generate-notes';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+            ]),
+            new WithBody([
+                'tag_name' => $this->tagName,
+                'target_commitish' => $this->targetCommitish,
+                'previous_tag_name' => $this->previousTagName,
+                'configuration_file_path' => $this->configurationFilePath,
+            ]),
+        ];
+    }
+}

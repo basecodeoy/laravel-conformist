@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Teams;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/teams#get-a-discussion
+ */
+final class GetDiscussionInOrgRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $teamSlug,
+        private int $discussionNumber,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'team_slug' => $this->teamSlug,
+                'discussion_number' => $this->discussionNumber,
+            ]),
+        ];
+    }
+}

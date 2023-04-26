@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Search;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/search#search-topics
+ */
+final class TopicsRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $q,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/search/topics';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithQueryParameters([
+                'q' => $this->q,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

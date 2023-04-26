@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Migrations;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/migrations/orgs#unlock-an-organization-repository
+ */
+final class UnlockRepoForOrgRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private int $migrationId,
+        private string $repoName,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::DELETE;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'migration_id' => $this->migrationId,
+                'repo_name' => $this->repoName,
+            ]),
+        ];
+    }
+}

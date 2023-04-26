@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Orgs;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user
+ */
+final class ListForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/orgs';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithQueryParameters([
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

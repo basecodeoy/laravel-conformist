@@ -1,0 +1,60 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Repos;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/repos#create-a-repository-using-a-template
+ */
+final class CreateUsingTemplateRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $templateOwner,
+        private string $templateRepo,
+        private string $owner,
+        private string $name,
+        private string $description,
+        private boolean $includeAllBranches,
+        private boolean $private,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{template_owner}/{template_repo}/generate';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'template_owner' => $this->templateOwner,
+                'template_repo' => $this->templateRepo,
+            ]),
+            new WithBody([
+                'owner' => $this->owner,
+                'name' => $this->name,
+                'description' => $this->description,
+                'include_all_branches' => $this->includeAllBranches,
+                'private' => $this->private,
+            ]),
+        ];
+    }
+}

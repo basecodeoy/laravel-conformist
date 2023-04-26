@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Packages;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/packages#restore-a-package-version-for-an-organization
+ */
+final class RestorePackageVersionForOrgRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $packageType,
+        private string $packageName,
+        private string $org,
+        private int $packageVersionId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'package_type' => $this->packageType,
+                'package_name' => $this->packageName,
+                'org' => $this->org,
+                'package_version_id' => $this->packageVersionId,
+            ]),
+        ];
+    }
+}

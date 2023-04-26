@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Packages;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/packages#restore-a-package-version-for-the-authenticated-user
+ */
+final class RestorePackageVersionForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $packageType,
+        private string $packageName,
+        private int $packageVersionId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'package_type' => $this->packageType,
+                'package_name' => $this->packageName,
+                'package_version_id' => $this->packageVersionId,
+            ]),
+        ];
+    }
+}

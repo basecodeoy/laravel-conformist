@@ -1,0 +1,62 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Repos;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/deployments/deployments#list-deployments
+ */
+final class ListDeploymentsRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private string $sha,
+        private string $ref,
+        private string $task,
+        private string|null $environment,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/deployments';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+            ]),
+            new WithQueryParameters([
+                'sha' => $this->sha,
+                'ref' => $this->ref,
+                'task' => $this->task,
+                'environment' => $this->environment,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

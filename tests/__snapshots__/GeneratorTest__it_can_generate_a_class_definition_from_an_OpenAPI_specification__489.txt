@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Interactions;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-your-public-repositories
+ */
+final class GetRestrictionsForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/interaction-limits';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            //
+        ];
+    }
+}

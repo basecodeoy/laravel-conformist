@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Apps;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/apps#check-a-token
+ */
+final class CheckTokenRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $clientId,
+        private string $accessToken,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/applications/{client_id}/token';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'client_id' => $this->clientId,
+            ]),
+            new WithBody([
+                'access_token' => $this->accessToken,
+            ]),
+        ];
+    }
+}

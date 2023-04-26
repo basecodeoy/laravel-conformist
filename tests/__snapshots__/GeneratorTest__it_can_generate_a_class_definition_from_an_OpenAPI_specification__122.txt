@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Orgs;
+
+use BombenProdukt\Conformist\Contracts\Connector;
+use BombenProdukt\Conformist\Enums\HttpMethod;
+use BombenProdukt\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user
+ */
+final class GetMembershipForUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $username,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/memberships/{username}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'username' => $this->username,
+            ]),
+        ];
+    }
+}
