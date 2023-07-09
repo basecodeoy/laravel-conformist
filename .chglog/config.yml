@@ -2,7 +2,7 @@ style: github
 template: CHANGELOG.tpl.md
 info:
   title: CHANGELOG
-  repository_url: https://github.com/BombenProdukt/laravel-conformist
+  repository_url: https://github.com/faustbrian/laravel-conformist
 options:
   commits:
     filters:
