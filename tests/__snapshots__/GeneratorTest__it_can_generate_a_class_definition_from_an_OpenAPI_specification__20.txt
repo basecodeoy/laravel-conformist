@@ -1,0 +1,64 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\SecretScanning;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-enterprise
+ */
+final class ListAlertsForEnterpriseRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $enterprise,
+        private string $state,
+        private string $secretType,
+        private string $resolution,
+        private string $sort,
+        private string $direction,
+        private int $perPage,
+        private string $before,
+        private string $after,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/enterprises/{enterprise}/secret-scanning/alerts';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'enterprise' => $this->enterprise,
+            ]),
+            new WithQueryParameters([
+                'state' => $this->state,
+                'secret_type' => $this->secretType,
+                'resolution' => $this->resolution,
+                'sort' => $this->sort,
+                'direction' => $this->direction,
+                'per_page' => $this->perPage,
+                'before' => $this->before,
+                'after' => $this->after,
+            ]),
+        ];
+    }
+}

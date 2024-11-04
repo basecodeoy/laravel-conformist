@@ -1,0 +1,301 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Binary operation \"\\.\\=\" between 0\\|0\\.0\\|''\\|'0'\\|array\\{\\}\\|false\\|null and \"new WithBody\\(\\[\\\\n\"\\|\"new WithBody\\(\\[\\\\r\\\\n\" results in an error\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 6
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildExtensionParameters\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildExtensionTemplate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildParameterLine\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildParameters\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:resolveRef\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:unwrapParameterLine\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, array given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:buildParameterLine\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:unwrapParameterLine\\(\\) expects string, mixed given\\.$#"
+			count: 2
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#2 \\$parameter of method BombenProdukt\\\\Conformist\\\\OpenApi\\\\Generator\\:\\:unwrapParameterLine\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|false given\\.$#"
+			count: 1
+			path: src/OpenApi/Generator.php
+
+		-
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Parameter \\#1 \\$specification of class BombenProdukt\\\\Conformist\\\\OpenApi\\\\Parser constructor expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Parameter \\$parameters of class BombenProdukt\\\\Conformist\\\\OpenApi\\\\Definition constructor expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Parameter \\$requestBody of class BombenProdukt\\\\Conformist\\\\OpenApi\\\\Definition constructor expects array, mixed given\\.$#"
+			count: 1
+			path: src/OpenApi/Parser.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\Request\\\\AbstractRequest\\:\\:__call\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Request/AbstractRequest.php
+
+		-
+			message: "#^Variable method call on Illuminate\\\\Http\\\\Client\\\\PendingRequest\\.$#"
+			count: 1
+			path: src/Request/AbstractRequest.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\Accept\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/Accept.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\AcceptJson\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/AcceptJson.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\AsForm\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/AsForm.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\AsJson\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/AsJson.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\AsMultipart\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/AsMultipart.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\Attach\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/Attach.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\BaseUrl\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/BaseUrl.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\BeforeSending\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/BeforeSending.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\BodyFormat\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/BodyFormat.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\ConnectTimeout\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/ConnectTimeout.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\ContentType\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/ContentType.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\Dump\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/Dump.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\DumpDie\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/DumpDie.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\MaxRedirects\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/MaxRedirects.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\Retry\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/Retry.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\Sink\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/Sink.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\Timeout\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/Timeout.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithBasicAuth\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithBasicAuth.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithBody\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithBody.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithCookies\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithCookies.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithDigestAuth\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithDigestAuth.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithHeaders\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithHeaders.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithMiddleware\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithMiddleware.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithOptions\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithOptions.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithRequestMiddleware\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithRequestMiddleware.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithResponseMiddleware\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithResponseMiddleware.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithToken\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithToken.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithUrlParameters\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithUrlParameters.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithUserAgent\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithUserAgent.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithoutRedirecting\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithoutRedirecting.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Request\\) of method BombenProdukt\\\\Conformist\\\\Request\\\\Extensions\\\\WithoutVerifying\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Request/Extensions/WithoutVerifying.php
+
+		-
+			message: "#^Method BombenProdukt\\\\Conformist\\\\Response\\\\AbstractResponse\\:\\:__call\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Response/AbstractResponse.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Response\\) of method BombenProdukt\\\\Conformist\\\\Response\\\\Extensions\\\\OnError\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Response/Extensions/OnError.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Response\\) of method BombenProdukt\\\\Conformist\\\\Response\\\\Extensions\\\\Throws\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Response/Extensions/Throws.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Response\\) of method BombenProdukt\\\\Conformist\\\\Response\\\\Extensions\\\\ThrowsIf\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Response/Extensions/ThrowsIf.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Response\\) of method BombenProdukt\\\\Conformist\\\\Response\\\\Extensions\\\\ThrowsIfClientError\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Response/Extensions/ThrowsIfClientError.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Response\\) of method BombenProdukt\\\\Conformist\\\\Response\\\\Extensions\\\\ThrowsIfServerError\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Response/Extensions/ThrowsIfServerError.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Response\\) of method BombenProdukt\\\\Conformist\\\\Response\\\\Extensions\\\\ThrowsIfStatus\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Response/Extensions/ThrowsIfStatus.php
+
+		-
+			message: "#^Parameter \\#1 \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Response\\) of method BombenProdukt\\\\Conformist\\\\Response\\\\Extensions\\\\ThrowsUnlessStatus\\:\\:register\\(\\) should be contravariant with parameter \\$extensible \\(BombenProdukt\\\\Conformist\\\\Contracts\\\\Extensible\\) of method BombenProdukt\\\\Conformist\\\\Contracts\\\\Extension\\:\\:register\\(\\)$#"
+			count: 1
+			path: src/Response/Extensions/ThrowsUnlessStatus.php

@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Actions;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/actions#add-a-repository-to-selected-repositories-list-for-a-required-workflow
+ */
+final class AddSelectedRepoToRequiredWorkflowRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private int $requiredWorkflowId,
+        private int $repositoryId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/actions/required_workflows/{required_workflow_id}/repositories/{repository_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'required_workflow_id' => $this->requiredWorkflowId,
+                'repository_id' => $this->repositoryId,
+            ]),
+        ];
+    }
+}

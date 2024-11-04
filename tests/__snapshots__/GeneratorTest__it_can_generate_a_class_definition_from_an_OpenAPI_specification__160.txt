@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Teams;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project
+ */
+final class CheckPermissionsForProjectInOrgRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $teamSlug,
+        private int $projectId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/teams/{team_slug}/projects/{project_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'team_slug' => $this->teamSlug,
+                'project_id' => $this->projectId,
+            ]),
+        ];
+    }
+}

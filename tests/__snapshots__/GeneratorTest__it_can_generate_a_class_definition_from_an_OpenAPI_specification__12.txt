@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Apps;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/apps#delete-an-app-authorization
+ */
+final class DeleteAuthorizationRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $clientId,
+        private string $accessToken,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/applications/{client_id}/grant';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::DELETE;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'client_id' => $this->clientId,
+            ]),
+            new WithBody([
+                'access_token' => $this->accessToken,
+            ]),
+        ];
+    }
+}
