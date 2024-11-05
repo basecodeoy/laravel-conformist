@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Repos;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/collaborators/invitations#accept-a-repository-invitation
+ */
+final class AcceptInvitationForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $invitationId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/repository_invitations/{invitation_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PATCH;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'invitation_id' => $this->invitationId,
+            ]),
+        ];
+    }
+}

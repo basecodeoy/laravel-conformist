@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Orgs;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/orgs#add-a-security-manager-team
+ */
+final class AddSecurityManagerTeamRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $teamSlug,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/security-managers/teams/{team_slug}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'team_slug' => $this->teamSlug,
+            ]),
+        ];
+    }
+}

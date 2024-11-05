@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Migrations;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/migrations/source-imports#update-git-lfs-preference
+ */
+final class SetLfsPreferenceRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private string $useLfs,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/import/lfs';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PATCH;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+            ]),
+            new WithBody([
+                'use_lfs' => $this->useLfs,
+            ]),
+        ];
+    }
+}

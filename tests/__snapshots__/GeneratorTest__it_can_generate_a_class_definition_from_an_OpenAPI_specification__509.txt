@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Projects;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/projects#create-a-user-project
+ */
+final class CreateForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $name,
+        private string|null $body,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/projects';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithBody([
+                'name' => $this->name,
+                'body' => $this->body,
+            ]),
+        ];
+    }
+}

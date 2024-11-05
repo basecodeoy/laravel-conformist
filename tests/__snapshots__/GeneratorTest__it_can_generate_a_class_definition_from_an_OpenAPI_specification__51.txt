@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Activity;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/activity#get-a-thread
+ */
+final class GetThreadRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $threadId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/notifications/threads/{thread_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'thread_id' => $this->threadId,
+            ]),
+        ];
+    }
+}

@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Teams;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/teams#list-discussions-legacy
+ */
+final class ListDiscussionsLegacyRequest extends AbstractRequest
+{
+    public function __constructor(
+        private int $teamId,
+        private string $direction,
+        private int $perPage,
+        private int $page,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/teams/{team_id}/discussions';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'team_id' => $this->teamId,
+            ]),
+            new WithQueryParameters([
+                'direction' => $this->direction,
+                'per_page' => $this->perPage,
+                'page' => $this->page,
+            ]),
+        ];
+    }
+}

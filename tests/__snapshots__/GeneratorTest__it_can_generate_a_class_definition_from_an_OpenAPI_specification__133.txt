@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Packages;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/packages#get-all-package-versions-for-a-package-owned-by-an-organization
+ */
+final class GetAllPackageVersionsForPackageOwnedByOrgRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $packageType,
+        private string $packageName,
+        private string $org,
+        private int $page,
+        private int $perPage,
+        private string $state,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/packages/{package_type}/{package_name}/versions';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'package_type' => $this->packageType,
+                'package_name' => $this->packageName,
+                'org' => $this->org,
+            ]),
+            new WithQueryParameters([
+                'page' => $this->page,
+                'per_page' => $this->perPage,
+                'state' => $this->state,
+            ]),
+        ];
+    }
+}

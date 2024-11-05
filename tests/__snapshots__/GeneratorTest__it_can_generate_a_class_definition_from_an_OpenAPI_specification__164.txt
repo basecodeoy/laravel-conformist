@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Orgs;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/orgs#enable-or-disable-security-product-on-all-org-repos
+ */
+final class EnableOrDisableSecurityProductOnAllOrgReposRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $securityProduct,
+        private string $enablement,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/{security_product}/{enablement}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'security_product' => $this->securityProduct,
+                'enablement' => $this->enablement,
+            ]),
+        ];
+    }
+}

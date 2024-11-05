@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Codespaces;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/codespaces/codespaces#create-a-repository-from-an-unpublished-codespace
+ */
+final class PublishForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $codespaceName,
+        private string $name,
+        private boolean $private,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/codespaces/{codespace_name}/publish';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::POST;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'codespace_name' => $this->codespaceName,
+            ]),
+            new WithBody([
+                'name' => $this->name,
+                'private' => $this->private,
+            ]),
+        ];
+    }
+}

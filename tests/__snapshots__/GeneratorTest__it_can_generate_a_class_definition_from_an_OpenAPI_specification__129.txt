@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Orgs;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator
+ */
+final class ConvertMemberToOutsideCollaboratorRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private string $username,
+        private boolean $async,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/outside_collaborators/{username}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'username' => $this->username,
+            ]),
+            new WithBody([
+                'async' => $this->async,
+            ]),
+        ];
+    }
+}

@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Actions;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/actions#enable-a-selected-repository-for-github-actions-in-an-organization
+ */
+final class EnableSelectedRepositoryGithubActionsOrganizationRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $org,
+        private int $repositoryId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/orgs/{org}/actions/permissions/repositories/{repository_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'org' => $this->org,
+                'repository_id' => $this->repositoryId,
+            ]),
+        ];
+    }
+}
