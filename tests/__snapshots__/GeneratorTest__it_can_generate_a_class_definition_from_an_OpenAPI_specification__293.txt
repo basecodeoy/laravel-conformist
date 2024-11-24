@@ -1,0 +1,78 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Dependabot;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/dependabot#list-dependabot-alerts-for-a-repository
+ */
+final class ListAlertsForRepoRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $owner,
+        private string $repo,
+        private string $state,
+        private string $severity,
+        private string $ecosystem,
+        private string $package,
+        private string $manifest,
+        private string $scope,
+        private string $sort,
+        private string $direction,
+        private int $page,
+        private int $perPage,
+        private string $before,
+        private string $after,
+        private int $first,
+        private int $last,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/repos/{owner}/{repo}/dependabot/alerts';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::GET;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'owner' => $this->owner,
+                'repo' => $this->repo,
+            ]),
+            new WithQueryParameters([
+                'state' => $this->state,
+                'severity' => $this->severity,
+                'ecosystem' => $this->ecosystem,
+                'package' => $this->package,
+                'manifest' => $this->manifest,
+                'scope' => $this->scope,
+                'sort' => $this->sort,
+                'direction' => $this->direction,
+                'page' => $this->page,
+                'per_page' => $this->perPage,
+                'before' => $this->before,
+                'after' => $this->after,
+                'first' => $this->first,
+                'last' => $this->last,
+            ]),
+        ];
+    }
+}

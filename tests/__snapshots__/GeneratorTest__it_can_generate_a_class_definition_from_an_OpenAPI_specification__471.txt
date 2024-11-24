@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\GitHub\Codespaces;
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret
+ */
+final class AddRepositoryForSecretForAuthenticatedUserRequest extends AbstractRequest
+{
+    public function __constructor(
+        private string $secretName,
+        private int $repositoryId,
+    ) {
+        //
+    }
+
+    public function path(): string
+    {
+        return '/user/codespaces/secrets/{secret_name}/repositories/{repository_id}';
+    }
+
+    public function connector(): Connector
+    {
+        return new GitHubConnector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::PUT;
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            new WithUrlParameters([
+                'secret_name' => $this->secretName,
+                'repository_id' => $this->repositoryId,
+            ]),
+        ];
+    }
+}

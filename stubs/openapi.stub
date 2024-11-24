@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Conformist\{{ service }}\{{ namespace }};
+
+use BaseCodeOy\Conformist\Contracts\Connector;
+use BaseCodeOy\Conformist\Enums\HttpMethod;
+use BaseCodeOy\Conformist\Request\AbstractRequest;
+
+/**
+ * @see {{ externalDocs }}
+ */
+final class {{ class }}Request extends AbstractRequest
+{
+    {{ parameters }}
+
+    public function path(): string
+    {
+        return '{{ path }}';
+    }
+
+    public function connector(): Connector
+    {
+        return new {{ service }}Connector;
+    }
+
+    public function method(): HttpMethod
+    {
+        return HttpMethod::{{ httpMethod }};
+    }
+
+    /** @return Extension[] */
+    public function extensions(): array
+    {
+        return [
+            {{ extensions }}
+        ];
+    }
+}
